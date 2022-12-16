@@ -1,0 +1,46 @@
+.main {
+  display: block;
+  padding: 48px 0 69px;
+}
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
+  gap: 20px;
+  margin: 0 auto;
+  list-style-type: none;
+  padding: 0;
+}
+.team-cards__container {
+  margin: 0 auto;
+}
+.btn-more {
+  display: block;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  width: 170px;
+  height: 40px;
+  border: 1px solid #151317;
+  padding: 8px 16px;
+  margin: 56px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-more__arrow {
+  background-image: url(../../images/arrow_more.svg);
+  width: 17.41px;
+  height: 9.17px;
+}
+.btn-more__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 136.19%;
+  color: #151317;
+}
+@media screen and (max-width: 700px) {
+  .main {
+    padding: 32px 0;
+  }
+}
