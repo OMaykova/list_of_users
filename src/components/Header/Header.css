@@ -1,19 +1,25 @@
 .header {
   min-height: 265px;
-  padding: 32px 80px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 32px 5.56% 0;
   color: #F8F8F8;
   background-color: #512689;
 }
-.header__signout-link {
+.header_type_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.header_type_profile {
+  display: flex;
+  justify-content: space-between;
+}
+.header__btn-cover {
   width: 81px;
   height: 38px;
   align-self: baseline;
   margin-left: auto;
 }
-.header__signout-btn {
+.header__btn {
   border: 1px solid #F8F8F8;
   border-radius: 8px;
   font-style: normal;
@@ -26,7 +32,7 @@
   width: 100%;
   color: #F8F8F8;
 }
-.header__signout-btn:focus {
+.header__btn:focus {
   outline: 0.5px solid #AAAAAA;
 }
 .team__title {
@@ -48,17 +54,66 @@
   line-height: 23px;
   text-align: center;
 }
-@media screen and (max-width: 700px) {
+.header__container {
+  display: flex;
+}
+.header__avatar {
+  width: 187px;
+  height: 187px;
+  border-radius: 100px;
+  margin: 7px 32px 0 29px;
+}
+.header__description {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+}
+.header__name {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 75px;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header__role {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 38px;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+
+
+@media screen and (max-width: 767px) {
   .header {
     min-height: 281px;
     padding: 23px 20px 0;
   }
-  .header__signout-link {
+  .header__btn-cover_type_exit {
     width: 18px;
     height: 18px;
     background-image: url(../../images/icon_exit.svg);
   }
-  .header__signout-btn {
+  .header__btn-cover_type_back {
+    width: 18px;
+    height: 18px;
+    background-image: url(../../images/arrow_back.svg);
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .header__btn {
     display: none;
   }
   .team__title {
@@ -69,5 +124,25 @@
   .team__description {
     font-size: 16px;
     line-height: 19px;
+    order: 2;
+  }
+  .header__container {
+    flex-direction: column;
+    position: relative;
+    flex-grow: 1;
+  }
+  .header__avatar {
+    margin: 16px auto 64px;
+    order: 3;
+  }
+  .header__name {
+    font-size: 36px;
+    line-height: 42px;
+    margin: 0 auto;
+  }
+  .header__role {
+    font-size: 20px;
+    line-height: 23px;
+    margin: 0 auto;
   }
 }
