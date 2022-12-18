@@ -62,6 +62,7 @@
   height: 187px;
   border-radius: 100px;
   margin: 7px 32px 0 29px;
+  object-fit: cover;
 }
 .header__description {
   margin-top: 36px;
@@ -112,6 +113,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    cursor: pointer;
   }
   .header__btn {
     display: none;

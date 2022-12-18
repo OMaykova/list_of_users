@@ -1,7 +1,10 @@
 import React from "react";
 import "./Profile.css";
 
-function Profile() {
+function Profile({selectedCard}) {
+  const { email,
+    phone} = selectedCard;
+
 	return (
     <section className="profile">
       <div className='profile-container'>
@@ -12,11 +15,11 @@ function Profile() {
       <div className="contact__container">
         <div className="contact__block">
           <div className="phone__image"></div>
-          <p className="contact__text">+7 (954) 333-44-55</p>
+          <p className="contact__text">{phone}</p>
         </div>
         <div className="contact__block">
           <div className="email__image"></div>
-          <p className="contact__text">sykfafkar@gmail.com</p>
+          <p className="contact__text">{email}</p>
         </div>
       </div>
     </section>

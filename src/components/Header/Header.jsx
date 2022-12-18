@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import './Header.css';
 import avaTest from '../../images/ava_test.svg';
 
-function Header() {
+function Header({selectedCard}) {
   const location = useLocation();
-  const navigate = useNavigate();
+  const history = useHistory();
 
   return (
     <>
@@ -20,15 +20,15 @@ function Header() {
           </div>
         </section>
       }
-      {location.pathname === '/profile' &&
+      { selectedCard ? location.pathname === `/profile/${selectedCard.id}` &&
         <section className="header header_type_profile">
-          <div className="header__container"> 
-            <div className="header__btn-cover header__btn-cover_type_back">   
-              <button className='header__btn header__btn_type_back' onClick={() => navigate(-1)} title='Назад' type="button" aria-label="Кнопка назад">Назад</button>
+          <div className="header__container">
+            <div className="header__btn-cover header__btn-cover_type_back" onClick={() => history.goBack()}>
+              <button className='header__btn header__btn_type_back' title='Назад' type="button" aria-label="Кнопка назад">Назад</button>
             </div>
-            <img className="header__avatar" src={avaTest} alt='Фото профиля' />
+            <img className="header__avatar" src={selectedCard.avatar} alt='Фото профиля' />
             <div className="header__description">
-              <h1 className="header__name">Фамилия</h1>
+              <h1 className="header__name">{`${selectedCard.firstName} ${selectedCard.lastName}`}</h1>
               <p className="header__role">Партнер</p>
             </div>
           </div>
@@ -36,6 +36,7 @@ function Header() {
             <button className='header__btn header__btn_type_exit' title='Выход' type="button" aria-label="Кнопка выход">Выход</button>
           </Link>
         </section>
+        : ''
       }
     </>
   );

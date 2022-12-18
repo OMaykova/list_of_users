@@ -10,12 +10,14 @@
   align-items: center;
   padding: 36px 28px 28px;
   box-sizing: border-box;
+
 }
 .card__avatar {
   width: 124px;
   height: 124px;
   border-radius: 100px;
   margin-bottom: 16px;
+  object-fit: cover;
 }
 .card__name {
   font-style: normal;
@@ -24,6 +26,7 @@
   line-height: 23px;
   color: #151317;
   margin-bottom: 16px;
+  text-decoration: none;
 }
 .card__like-btn {
   width: 30px;
