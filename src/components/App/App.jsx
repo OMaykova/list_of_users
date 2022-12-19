@@ -47,7 +47,7 @@ console.log("currentUser", currentUser)
         console.log("res", res)
         localStorage.setItem('jwt', res.token);
         setIsLoggedIn(true);
-        history.push("/");
+        history.push("/users");
         setCurrentUser ({
           _id: res.id
         })
@@ -68,7 +68,7 @@ console.log("currentUser", currentUser)
       .then((users) => {
         setUsers(users.data)
         setIsLoggedIn(true);
-        history.push("/");
+        history.push("/users");
       })
       .catch(err => {
         console.log(err)
@@ -86,7 +86,7 @@ console.log("currentUser", currentUser)
     <CurrentUserContext.Provider value ={currentUser}>
       <div className="page">
         <Switch>
-          <ProtectedRoute exact path="/" isLoggedIn={isLoggedIn}>
+          <ProtectedRoute exact path="/users" isLoggedIn={isLoggedIn}>
             <Header
               handleSignOut={handleSignOut}
             />
