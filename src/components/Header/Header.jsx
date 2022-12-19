@@ -1,9 +1,8 @@
 import React from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import './Header.css';
-import avaTest from '../../images/ava_test.svg';
 
-function Header({selectedCard}) {
+function Header({selectedCard, handleSignOut }) {
   const location = useLocation();
   const history = useHistory();
 
@@ -11,9 +10,9 @@ function Header({selectedCard}) {
     <>
       {location.pathname === '/' &&
         <section className="header header_type_main">
-          <Link to = '/signout' className='header__btn-cover header__btn-cover_type_exit'>
-            <button className='header__btn header__btn_type_exit' title='Выход' type="button" aria-label="Кнопка выход">Выход</button>
-          </Link>
+          <div className='header__btn-cover header__btn-cover_type_exit'>
+            <button className='header__btn header__btn_type_exit' onClick={handleSignOut} title='Выход' type="button" aria-label="Кнопка выход">Выход</button>
+          </div>
           <div className="team">
             <h1 className="team__title">Наша команда</h1>
             <p className="team__description">Это опытные специалисты, хорошо разбирающиеся во всех задачах, которые ложатся на их плечи, и умеющие находить выход из любых, даже самых сложных ситуаций.</p>
@@ -32,9 +31,9 @@ function Header({selectedCard}) {
               <p className="header__role">Партнер</p>
             </div>
           </div>
-          <Link to = '/signout' className='header__btn-cover header__btn-cover_type_exit'>
-            <button className='header__btn header__btn_type_exit' title='Выход' type="button" aria-label="Кнопка выход">Выход</button>
-          </Link>
+          <div className='header__btn-cover header__btn-cover_type_exit'>
+            <button className='header__btn header__btn_type_exit' onClick={handleSignOut} title='Выход' type="button" aria-label="Кнопка выход">Выход</button>
+          </div>
         </section>
         : ''
       }

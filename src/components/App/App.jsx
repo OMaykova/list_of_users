@@ -2,12 +2,16 @@ import React, { useEffect, useState }  from "react";
 import Header from '../Header/Header.jsx';
 import Main from '../Main/Main';
 import './App.css';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import Profile from '../Profile/Profile';
 import {usersApi} from "../../utils/usersApi";
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import Register from "../Register/Register.jsx";
+import { register } from '../../utils/auth';
+import ProtectedRoute from '../ProtectedRoute ';
 
 function App() {
+  const history = useHistory();
   const [users, setUsers] = useState([]);
   const [selectedCard, setSelectedCard] = useState({
     avatar: '',
@@ -18,20 +22,11 @@ function App() {
     id: '',
   })
   const [currentUser, setCurrentUser] =useState({
-    name:'test',
-    email: 'test',
-    _id: 58,
+    _id: '',
   })
+const [isLoggedIn, setIsLoggedIn] = useState();
 
-  useEffect(() => {
-    usersApi.getUsers()
-    .then((users) => {
-      console.log(users.data)
-      setUsers(users.data)
-    })
-    .catch((err) => console.log(err))
-  }, [])
-
+console.log("currentUser", currentUser)
   function handleCardClick(user) {
     setSelectedCard({ avatar: user.avatar, firstName: user.first_name, lastName: user.last_name, email: user.email, phone: '+7 (954) 333-44-55', id: user.id });
   }
@@ -45,24 +40,74 @@ function App() {
       }).catch(console.log)
   }
 
+  function handleRegister({password, email}) {
+    return register(password, email)
+    .then((res) => {
+      if(res) {
+        console.log("res", res)
+        localStorage.setItem('jwt', res.token);
+        setIsLoggedIn(true);
+        history.push("/");
+        setCurrentUser ({
+          _id: res.id
+        })
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    history.push('/signup');
+  }
+  function checkToken() {
+    if (localStorage.getItem('jwt')){
+      usersApi.getUsers()
+      .then((users) => {
+        setUsers(users.data)
+        setIsLoggedIn(true);
+        history.push("/");
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    } else {
+      setIsLoggedIn(false)
+      history.push("/signup");
+    }
+  }
+  useEffect(() => {
+    checkToken();
+  }, []);
+
   return (
     <CurrentUserContext.Provider value ={currentUser}>
       <div className="page">
         <Switch>
-          <Route exact path="/">
-            <Header />
+          <ProtectedRoute exact path="/" isLoggedIn={isLoggedIn}>
+            <Header
+              handleSignOut={handleSignOut}
+            />
             <Main
               handleCardLike={handleCardLike}
               currentUser={currentUser}
               users={users}
               onCardClick={handleCardClick}
             />
-          </Route>
-          <Route exact path="/profile/:id">
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/profile/:id" isLoggedIn={isLoggedIn}>
             <Header
               selectedCard={selectedCard}/>
+              handleSignOut={handleSignOut}
             <Profile
               selectedCard={selectedCard}
+            />
+          </ProtectedRoute>
+          <Route exact path='/signup'>
+            <Register
+              handleReqest={handleRegister}
             />
           </Route>
         </Switch>

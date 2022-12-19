@@ -37,8 +37,8 @@ class UsersApi {
       headers: this._headers,
       body: JSON.stringify({
         avatar: user.avatar,
-        firstName: user.first_name,
-        lastName: user.last_name,
+        first_name: user.first_name,
+        last_name: user.last_name,
         email: user.email,
         phone: '+7 (954) 333-44-55',
         id: user.id,
