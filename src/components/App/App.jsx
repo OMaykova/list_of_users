@@ -24,9 +24,22 @@ function App() {
   const [currentUser, setCurrentUser] =useState({
     _id: '',
   })
-const [isLoggedIn, setIsLoggedIn] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-console.log("currentUser", currentUser)
+  useEffect(() => {
+    if(isLoggedIn) {
+      usersApi.getUsers()
+        .then((users) => {
+          console.log(users)
+          setUsers(users.data)
+          history.push("/users")
+        })
+        .catch(err => {
+          console.log(err)
+        });
+    }
+  }, [isLoggedIn])
+
   function handleCardClick(user) {
     setSelectedCard({ avatar: user.avatar, firstName: user.first_name, lastName: user.last_name, email: user.email, phone: '+7 (954) 333-44-55', id: user.id });
   }
@@ -44,10 +57,8 @@ console.log("currentUser", currentUser)
     return register(password, email)
     .then((res) => {
       if(res) {
-        console.log("res", res)
         localStorage.setItem('jwt', res.token);
         setIsLoggedIn(true);
-        history.push("/users");
         setCurrentUser ({
           _id: res.id
         })
@@ -63,19 +74,11 @@ console.log("currentUser", currentUser)
     history.push('/signup');
   }
   function checkToken() {
-    if (localStorage.getItem('jwt')){
-      usersApi.getUsers()
-      .then((users) => {
-        setUsers(users.data)
+    if (localStorage.getItem('jwt')) {
         setIsLoggedIn(true);
-        history.push("/users");
-      })
-      .catch(err => {
-        console.log(err)
-      });
     } else {
-      setIsLoggedIn(false)
-      history.push("/signup");
+      setIsLoggedIn(true);
+      history.push('/signup')
     }
   }
   useEffect(() => {
