@@ -77,7 +77,7 @@ function App() {
     if (localStorage.getItem('jwt')) {
         setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(true);
+      setIsLoggedIn(false);
       history.push('/signup')
     }
   }
