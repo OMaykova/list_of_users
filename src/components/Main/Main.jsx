@@ -26,7 +26,7 @@ function Main({users, onCardClick, currentUser, handleCardLike}) {
         {
           showCards.map(user =>
             <li className="team-cards__container" key={user.id}>
-              <Link to={`${path}profile/${user.id}`} style={{ textDecoration: 'none' }}>
+              <Link to={`${path}/profile/${user.id}`} style={{ textDecoration: 'none' }}>
                 <Card
                   key={user.id}
                   handleCardLike={handleCardLike}

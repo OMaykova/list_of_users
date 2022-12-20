@@ -97,7 +97,7 @@ console.log("currentUser", currentUser)
               onCardClick={handleCardClick}
             />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/profile/:id" isLoggedIn={isLoggedIn}>
+          <ProtectedRoute exact path="/users/profile/:id" isLoggedIn={isLoggedIn}>
             <Header
               selectedCard={selectedCard}/>
               handleSignOut={handleSignOut}
