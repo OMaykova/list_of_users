@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import like from '../../images/like.svg';
 import like_active from '../../images/like_active.svg';
 import './Card.css';
-import avaTest from '../../images/ava_test.svg';
-import { usersApi } from "../../utils/usersApi";
+
 
 function Card({user, onCardClick, currentUser, handleCardLike}) {
   const isLiked = (user.like === currentUser._id);

@@ -8,7 +8,7 @@ function Header({selectedCard, handleSignOut }) {
 
   return (
     <>
-      {location.pathname === '/' &&
+      {location.pathname === '/users' &&
         <section className="header header_type_main">
           <div className='header__btn-cover header__btn-cover_type_exit'>
             <button className='header__btn header__btn_type_exit' onClick={handleSignOut} title='Выход' type="button" aria-label="Кнопка выход">Выход</button>
@@ -19,7 +19,7 @@ function Header({selectedCard, handleSignOut }) {
           </div>
         </section>
       }
-      { selectedCard ? location.pathname === `/profile/${selectedCard.id}` &&
+      { selectedCard ? location.pathname === `/users/profile/${selectedCard.id}` &&
         <section className="header header_type_profile">
           <div className="header__container">
             <div className="header__btn-cover header__btn-cover_type_back" onClick={() => history.goBack()}>
