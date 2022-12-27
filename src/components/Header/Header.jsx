@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import './Header.css';
 
-function Header({selectedCard, handleSignOut }) {
+function Header({selectedCard, handleSignOut}) {
   const location = useLocation();
   const history = useHistory();
 

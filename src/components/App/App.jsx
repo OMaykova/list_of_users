@@ -70,9 +70,12 @@ function App() {
   }
   function handleSignOut() {
     localStorage.removeItem('jwt');
+    console.log('выход')
     setIsLoggedIn(false);
     history.push('/signup');
   }
+
+
   function checkToken() {
     if (localStorage.getItem('jwt')) {
         setIsLoggedIn(true);
@@ -102,8 +105,8 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/users/profile/:id" isLoggedIn={isLoggedIn}>
             <Header
-              selectedCard={selectedCard}/>
-              handleSignOut={handleSignOut}
+              selectedCard={selectedCard}
+              handleSignOut={handleSignOut}/>
             <Profile
               selectedCard={selectedCard}
             />
