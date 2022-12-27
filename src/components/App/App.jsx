@@ -102,8 +102,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute exact path="/users/profile/:id" isLoggedIn={isLoggedIn}>
             <Header
-              selectedCard={selectedCard}/>
+              selectedCard={selectedCard}
               handleSignOut={handleSignOut}
+              />
             <Profile
               selectedCard={selectedCard}
             />
