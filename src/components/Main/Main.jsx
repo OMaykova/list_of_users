@@ -4,9 +4,8 @@ import Card from '../Card/Card';
 import './Main.css';
 import { useSelector } from "react-redux";
 
-function Main({users, onCardClick, currentUser, handleCardLike}) {
-  const usersR = useSelector((state) => state.users[0]);
-  console.log('usersR', usersR)
+function Main({ onCardClick, currentUser, handleCardLike}) {
+  const usersR = useSelector((state) => state.users.users);
   let { path } = useRouteMatch();
   const [counter, setCounter] = useState({total: 4, more: 1})
   const [showCards, setShowCards] = useState([]);

@@ -15,7 +15,7 @@ class UsersApi {
     })
     .then(this._getResponseData)
   }
-  setLike(userId, user) {
+  setLike(currentUserId, user) {
     return fetch(`${this._baseUrl}/users/${user.id}`, {
       method: 'PATCH',
       headers: this._headers,
@@ -26,7 +26,7 @@ class UsersApi {
         email: user.email,
         phone: '+7 (954) 333-44-55',
         id: user.id,
-        like: userId,
+        like: currentUserId,
       })
     })
     .then(this._getResponseData)

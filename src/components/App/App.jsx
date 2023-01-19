@@ -4,21 +4,17 @@ import Main from '../Main/Main';
 import './App.css';
 import { Switch, Route, useHistory } from "react-router-dom";
 import Profile from '../Profile/Profile';
-import {usersApi} from "../../utils/usersApi";
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import Register from "../Register/Register.jsx";
 import { register } from '../../utils/auth';
 import ProtectedRoute from '../ProtectedRoute ';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
-import { ADD_USERS } from '../../store/actions';
-import { UPDATE_USER } from '../../store/actions';
+import { fetchUsers, setLikeUser } from '../../store/usersSlice';
+import { addCurrentUser } from '../../store/currentUserSlice';
 
 function App() {
-  const dispatch = useDispatch();
-  const usersR = useSelector((state) => state = state.users[0])
   const history = useHistory();
-  // const [users, setUsers] = useState([]);
   const [selectedCard, setSelectedCard] = useState({
     avatar: '',
     firstName: '',
@@ -27,25 +23,15 @@ function App() {
     phone: '',
     id: '',
   })
-  const [currentUser, setCurrentUser] =useState({
-    _id: '',
-  })
+  const currentUser = useSelector((state) => state = state.currentUser.currentUser);
+  const { status, error } = useSelector(state => state.users);
+  const dispatch = useDispatch();
 const [isLoggedIn, setIsLoggedIn] = useState(false);
-console.log('currentUser', currentUser)
 
 useEffect(() => {
   if (isLoggedIn) {
-    usersApi.getUsers()
-    .then((res) => {
-      console.log('res', res)
-      dispatch({
-        type: ADD_USERS,
-        payload:
-          res.data
-        })
-    })
-    .then(() => history.push("/users"))
-    .catch((err) => console.log(err));
+    dispatch(fetchUsers());
+    history.push("/users")
     }
 }, [isLoggedIn])
 
@@ -54,36 +40,17 @@ useEffect(() => {
   }
 
   function handleCardLike(user) {
-    const isLiked = (user.like === currentUser._id);
-    console.log('user.like', user.like)
-    console.log('currentUser._id', currentUser._id)
-    const request = isLiked ?
-      usersApi.removeLike(user) : usersApi.setLike(currentUser._id, user);
-
-    request
-      .then((newUser) => {
-        console.log('newUser', newUser)
-      dispatch({
-          type: UPDATE_USER,
-          payload: {
-            id: newUser.id,
-            like: newUser.like
-          }
-
-        })
-        // setUsers((state) => state.map((u) => u.id === newUser.id ? newUser : u));
-        }).catch(console.log)
+    dispatch(setLikeUser(user))
   }
 
   function handleRegister({password, email}) {
     return register(password, email)
     .then((res) => {
       if(res) {
+        console.log(res)
         localStorage.setItem('jwt', res.token);
         setIsLoggedIn(true);
-        setCurrentUser ({
-          _id: res.id
-        })
+        dispatch(addCurrentUser(res))
       }
     })
     .catch((err) => {
@@ -107,9 +74,6 @@ useEffect(() => {
     }
   }
 
-
-  console.log('dispatch', usersR)
-
   useEffect(() => {
     checkToken();
   }, []);
@@ -123,10 +87,11 @@ useEffect(() => {
             <Header
               handleSignOut={handleSignOut}
             />
+            {status === 'loading' && <h2>Loading...</h2>}
+            {error && <h2>Произошла ошибка на сервере</h2>}
             <Main
               handleCardLike={handleCardLike}
               currentUser={currentUser}
-              users={usersR}
               onCardClick={handleCardClick}
             />
           </ProtectedRoute>
